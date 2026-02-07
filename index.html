@@ -1,182 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>For My Love 💌</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Forever Proposal 💍</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{
+  height:100vh;
+  background: radial-gradient(circle at top,#1a2a6c,#000428,#000);
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:white;
+}
 
-  <style>
-    *{box-sizing:border-box;}
+/* Galaxy */
+.stars{position:absolute;width:100%;height:100%;z-index:0;}
+.star{position:absolute;width:2px;height:2px;background:white;animation:twinkle 3s infinite;}
+@keyframes twinkle{0%,100%{opacity:.2;}50%{opacity:1;}}
 
-    body{
-      margin:0;
-      height:100vh;
-      font-family:'Poppins',sans-serif;
-      background: linear-gradient(120deg,#0f2027,#203a43,#2c5364);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      overflow:hidden;
-      color:white;
-    }
+/* Rose petals */
+.petal{position:absolute;top:-20px;font-size:18px;animation:fall 8s linear infinite;opacity:.8;}
+@keyframes fall{0%{transform:translateY(0) rotate(0);}100%{transform:translateY(120vh) rotate(360deg);}}
 
-    .stars{
-      position:absolute;
-      width:100%;
-      height:100%;
-      background:transparent;
-      overflow:hidden;
-      z-index:0;
-    }
+/* Fireworks */
+.firework{position:absolute;width:6px;height:6px;border-radius:50%;background:gold;animation:explode 1.5s ease-out infinite;opacity:0;}
+@keyframes explode{0%{transform:scale(0);opacity:1;}100%{transform:scale(8);opacity:0;}}
 
-    .star{
-      position:absolute;
-      width:2px;
-      height:2px;
-      background:white;
-      animation: twinkle 4s infinite ease-in-out;
-      opacity:0.8;
-    }
+/* Main cinematic container */
+.scene{
+  position:relative;
+  z-index:5;
+  width:90%;
+  max-width:420px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(15px);
+  border-radius:30px;
+  padding:40px 25px;
+  text-align:center;
+  box-shadow:0 0 60px rgba(255,215,0,0.3);
+}
 
-    @keyframes twinkle{
-      0%,100%{opacity:0.2;}
-      50%{opacity:1;}
-    }
+h1{font-size:26px;margin-bottom:15px;color:#ffd700;text-shadow:0 0 15px gold;}
 
-    .envelope{
-      position:relative;
-      width:350px;
-      height:230px;
-      background:#e63946;
-      border-radius:15px;
-      cursor:pointer;
-      box-shadow:0 20px 50px rgba(0,0,0,0.5);
-      transition:1s;
-      z-index:2;
-    }
+/* Ring box */
+.ring-box{
+  width:120px;height:90px;margin:0 auto 20px;
+  background:#111;border-radius:10px;position:relative;
+  box-shadow:0 0 20px rgba(255,215,0,.6);
+  cursor:pointer;
+}
+.ring-lid{
+  position:absolute;top:0;left:0;width:100%;height:50%;
+  background:#222;border-radius:10px 10px 0 0;
+  transform-origin:bottom;transition:1s;
+}
+.ring{
+  position:absolute;bottom:15px;left:50%;transform:translateX(-50%);
+  font-size:28px;opacity:0;transition:1s;
+}
+.open .ring-lid{transform:rotateX(150deg);} 
+.open .ring{opacity:1;}
 
-    .envelope:before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      background:linear-gradient(135deg,transparent 50%,rgba(0,0,0,0.2) 50%);
-      border-radius:15px;
-    }
+p{font-size:18px;margin-bottom:25px;}
 
-    .letter{
-      position:absolute;
-      bottom:10px;
-      left:10px;
-      right:10px;
-      height:0;
-      background:white;
-      color:#333;
-      border-radius:10px;
-      text-align:center;
-      padding:0 15px;
-      overflow:hidden;
-      transition:1s ease;
-    }
+.buttons{display:flex;justify-content:center;gap:20px;}
+button{padding:12px 28px;border:none;border-radius:30px;font-size:15px;cursor:pointer;transition:.3s;}
+#yesBtn{background:linear-gradient(45deg,#ff4d6d,#ff758f);color:white;box-shadow:0 0 15px pink;}
+#yesBtn:hover{transform:scale(1.15);} 
+#noBtn{background:#eee;color:#333;position:relative;}
 
-    .letter h1{color:#e63946;font-size:22px;margin-top:20px;}
-    .letter p{font-size:16px;margin:15px 0 20px;}
+.success{
+  display:none;
+  margin-top:25px;
+  font-size:20px;
+  color:#00ffcc;
+  text-shadow:0 0 20px #00ffcc;
+}
 
-    .buttons{
-      display:flex;
-      justify-content:center;
-      gap:20px;
-      margin-bottom:20px;
-    }
+/* Cute couple */
+.couple{margin-top:15px;font-size:40px;}
 
-    button{
-      padding:10px 22px;
-      border:none;
-      border-radius:25px;
-      cursor:pointer;
-      font-size:14px;
-      transition:0.3s;
-    }
-
-    #yesBtn{background:#e63946;color:white;}
-    #yesBtn:hover{transform:scale(1.1);}
-
-    #noBtn{background:#ccc;color:#333;position:relative;}
-
-    .open .letter{
-      height:190px;
-      padding-top:10px;
-    }
-
-    .success{
-      position:absolute;
-      bottom:-80px;
-      width:100%;
-      text-align:center;
-      font-size:20px;
-      color:#ffd166;
-      display:none;
-      animation: glow 2s infinite;
-    }
-
-    @keyframes glow{
-      0%{text-shadow:0 0 5px #ffd166;}
-      50%{text-shadow:0 0 20px #ffd166;}
-      100%{text-shadow:0 0 5px #ffd166;}
-    }
-
-  </style>
+</style>
 </head>
 <body>
 
 <div class="stars" id="stars"></div>
 
-<div class="envelope" id="envelope">
-  <div class="letter" id="letter">
-    <h1>My Love 💖</h1>
-    <p>Will you be my Valentine? 💌</p>
-    <div class="buttons">
-      <button id="yesBtn">Yes ❤️</button>
-      <button id="noBtn">No 🙈</button>
-    </div>
+<div class="scene" id="scene">
+  <h1>My Forever Love 💖</h1>
+
+  <div class="ring-box" id="ringBox">
+    <div class="ring-lid"></div>
+    <div class="ring">💍</div>
   </div>
-  <div class="success" id="success">She said YES 😭💍 Forever begins now ❤️</div>
+
+  <p>Will you be my Valentine? 💌</p>
+
+  <div class="buttons">
+    <button id="yesBtn">YES ❤️</button>
+    <button id="noBtn">NO 🙈</button>
+  </div>
+
+  <div class="success" id="success">
+    She said YES 😭💍❤️ <br> Forever begins now ✨
+    <div class="couple">🧸💑🧸</div>
+  </div>
 </div>
 
 <script>
-  const envelope = document.getElementById('envelope');
-  const letter = document.getElementById('letter');
-  const yesBtn = document.getElementById('yesBtn');
-  const noBtn = document.getElementById('noBtn');
-  const success = document.getElementById('success');
+// stars
+const stars=document.getElementById('stars');
+for(let i=0;i<150;i++){const s=document.createElement('div');s.className='star';s.style.left=Math.random()*100+'vw';s.style.top=Math.random()*100+'vh';stars.appendChild(s);} 
 
-  envelope.addEventListener('click', ()=>{
-    envelope.classList.add('open');
-  });
+// petals
+setInterval(()=>{const p=document.createElement('div');p.className='petal';p.innerText='🌹';p.style.left=Math.random()*100+'vw';document.body.appendChild(p);setTimeout(()=>p.remove(),8000);},500);
 
-  yesBtn.addEventListener('click',(e)=>{
-    e.stopPropagation();
-    success.style.display='block';
-  });
+// fireworks
+setInterval(()=>{const f=document.createElement('div');f.className='firework';f.style.left=(40+Math.random()*20)+'vw';f.style.top=(20+Math.random()*20)+'vh';document.body.appendChild(f);setTimeout(()=>f.remove(),1500);},2000);
 
-  noBtn.addEventListener('mouseover',(e)=>{
-    const x = Math.random()*180-90;
-    const y = Math.random()*120-60;
-    noBtn.style.transform = `translate(${x}px,${y}px)`;
-  });
+const ringBox=document.getElementById('ringBox');
+const scene=document.getElementById('scene');
+const yesBtn=document.getElementById('yesBtn');
+const noBtn=document.getElementById('noBtn');
+const success=document.getElementById('success');
 
-  // stars
-  const starsContainer = document.getElementById('stars');
-  for(let i=0;i<120;i++){
-    const s=document.createElement('div');
-    s.classList.add('star');
-    s.style.left=Math.random()*100+'vw';
-    s.style.top=Math.random()*100+'vh';
-    s.style.animationDelay=(Math.random()*4)+'s';
-    starsContainer.appendChild(s);
-  }
+ringBox.addEventListener('click',()=>{scene.classList.add('open');});
+
+yesBtn.addEventListener('click',()=>{success.style.display='block';});
+
+noBtn.addEventListener('mouseover',()=>{const x=Math.random()*200-100;const y=Math.random()*150-75;noBtn.style.transform=`translate(${x}px,${y}px)`;});
 </script>
 
 </body>
